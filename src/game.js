@@ -31,7 +31,9 @@ Game = {
     Crafty.init(Game.width(), Game.height());
     Crafty.background('rgb(249, 223, 125)');
 
-    Crafty.scene('Game');
+    Crafty.scene('Loading');
   }
 
 }
+
+$text_css = {'font-size': '24px', 'font-family': 'Arial', 'color': 'white', 'text-align': 'center' }

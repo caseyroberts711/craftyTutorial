@@ -54,10 +54,12 @@ Crafty.scene(
 
   function(){
 
+    // Display some text
     Crafty.e('2D, DOM, Text')
       .attr({ x:0, y:0 })
       .text('Victory!');
 
+    // Restart the game when the player presses any key
     this.restart_game = this.bind(
       'KeyDown', 
       function(){
@@ -67,8 +69,51 @@ Crafty.scene(
 
   },
 
+  // Unbind so we don't end up with multiple redundant watchers after multiple restarts of the game
   function(){
     this.unbind('KeyDown', this.restart_game);
   }
 
 );
+
+Crafty.scene(
+
+  'Loading',
+
+  function(){
+    // Draw some text for the player to see in case the file takes a noticable amount of time to load
+    Crafty.e('2D, DOM, Text')
+      .text('Loading...')
+      .attr({ x: 0, y: Game.height()/2-24, w: Game.width() });
+      // .css($text_css);
+    // Load our sprit map image
+    Crafty.load(
+      // The file to take the images from
+      ['assets/16x16_forest_1.gif'], 
+      // One the image is loaded, define the sprites
+      function(){
+        Crafty.sprite(
+          16,
+          'assets/16x16_forest_1.gif',
+          {
+            spr_tree: [0,0],
+            spr_bush: [1,0],
+            spr_village: [0,1],
+            spr_player: [1,1]
+          }
+        );
+        // Make the game pause for a bit so we can see the loading screen
+        for(var x=0; x<1e9; ++x)
+          ;
+        // Now that our sprites are ready to draw, start the game
+        Crafty.scene('Game')
+      }
+    )
+  }
+
+);
+
+
+
+
+

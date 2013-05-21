@@ -46,26 +46,25 @@ Crafty.c('Tree', {
 // A Bush is just an Actor with a certain color
 Crafty.c('Bush', {
   init: function() {
-    this.requires('Actor, Color, Solid')
-      .color('rgb(20, 185, 40)');
+    this.requires('Actor, Solid, spr_bush');
   },
 });
 
 // This is the player-controlled character
 Crafty.c('PlayerCharacter', {
   init: function() {
-    this.requires('Actor, Fourway, Color, Collision')
+    this.requires('Actor, Fourway, Collision, spr_player')
       .fourway(4)
-      .color('rgb(20, 75, 40)')
       .stopOnSolids()
       .onHit('Village', this.visitVillage);
   },
 
   stopOnSolids: function() {
     this.onHit('Solid', this.stopMovement);
-    return this;
+    return this; // cuz the init function requires these guys to return 'this'
   },
 
+  // this does not return this, because onHit must not require that
   stopMovement: function() {
     this._speed = 0;
     // We just moved into it, so we must move back out?
@@ -83,8 +82,7 @@ Crafty.c('PlayerCharacter', {
 
 Crafty.c('Village', {
   init: function() {
-    this.requires('Actor, Color')
-      .color('rgb(170, 125, 40)');
+    this.requires('Actor, spr_village');
   },
 
   collect: function() {
