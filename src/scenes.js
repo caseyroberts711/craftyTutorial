@@ -89,7 +89,7 @@ Crafty.scene(
     // Load our sprit map image
     Crafty.load(
       // The file to take the images from
-      ['assets/16x16_forest_1.gif'], 
+      ['assets/16x16_forest_1.gif', 'assets/hunter.png', 'assets/door_knock_3x.mp3'], 
       // One the image is loaded, define the sprites
       function(){
         Crafty.sprite(
@@ -99,7 +99,22 @@ Crafty.scene(
             spr_tree: [0,0],
             spr_bush: [1,0],
             spr_village: [0,1],
-            spr_player: [1,1]
+          }
+        );
+        // Define the PC's sprite to be the first sprite in the third row of the animation sprite map
+        Crafty.sprite(
+          16,
+          'assets/hunter.png',
+          {
+            spr_player: [0,2],
+          },
+          0,
+          2
+        );
+        // Define our sounds for later use
+        Crafty.audio.add(
+          {
+            knock: ['assets/door_knock_3x.mp3']
           }
         );
         // Make the game pause for a bit so we can see the loading screen
